@@ -39,13 +39,13 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         binding.rvUser.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
+                if (dy > 0) {
+                    val lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition()
 
-                val lastVisiblePosition = layoutManager.findLastCompletelyVisibleItemPosition()
-
-                if (viewModel.getSearchResult().value?.state != State.LOADING && lastVisiblePosition == userAdapter.getList().size - 1) {
-                    viewModel.onLoadMore()
+                    if (viewModel.getSearchResult().value?.state != State.LOADING && lastVisiblePosition == userAdapter.getList().size - 1) {
+                        viewModel.onLoadMore()
+                    }
                 }
-
             }
         })
 
