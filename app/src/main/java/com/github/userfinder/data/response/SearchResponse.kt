@@ -8,6 +8,6 @@ data class SearchResponse(
     var totalCount : Int,
     @SerializedName("incomplete_results")
     var incompleteResults : Boolean,
-    @SerializedName("total_count")
+    @SerializedName("items")
     var items : List<User>
 )

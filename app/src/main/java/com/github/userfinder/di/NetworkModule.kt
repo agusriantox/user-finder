@@ -16,7 +16,7 @@ private const val BASE_URL = "https://api.github.com/"
 val NetworkModule = module {
     single { GsonConverterFactory.create() }
     single { createOkHttpClient() }
-    single { createGithubService(get()) }
+    single { createGithubService(get(), get()) }
 }
 
 
@@ -34,11 +34,11 @@ fun createOkHttpClient(): OkHttpClient {
         .build()
 }
 
-fun createGithubService(okHttpClient: OkHttpClient): GithubService {
+fun createGithubService(okHttpClient: OkHttpClient, factory: GsonConverterFactory): GithubService {
     return Retrofit.Builder()
         .baseUrl(BASE_URL)
         .client(okHttpClient)
-        .addConverterFactory(GsonConverterFactory.create())
+        .addConverterFactory(factory)
         .build()
         .create(GithubService::class.java)
 }
